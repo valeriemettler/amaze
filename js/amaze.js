@@ -12,17 +12,11 @@ var one_zero_arr_generator = function() {
 
 var display = function(n) {
     var a = one_zero_arr_generator();
-    //loop over the one zero arr here
-    //add class x0 (white) if it is 0 and class x1(grey) if it is one
+    var x = "";
     for (var i = 0; i < a.length; i++) {
         console.log(a[i]);
-        if (a[i] == 1){
-        $(a[i]).addClass('.x1');
-       }
-    }
-    var x = "";
-    for (var i = 0; i <= n; i++) {
-        x = x + '<div class="x" id="box' + i + '"></div>';
+        x = x + '<div class="y x' + a[i] + '" id="box' + i + '"></div>';
+        console.log(x);
     }
     $('#container').html(x);
 };
