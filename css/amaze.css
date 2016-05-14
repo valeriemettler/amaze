@@ -1,0 +1,13 @@
+.x {
+    border: 1px solid black;
+    height: 25px;
+    width: 25px;
+    float: left;
+}
+.x0 {
+    background-color: white;
+}
+.x1 {
+    background-color: gray;
+}
+

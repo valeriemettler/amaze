@@ -1,4 +1,4 @@
-var current_number = 1;
+// current_number = 7;
 var n = 9;
 
 var one_zero_arr_generator = function() {
@@ -9,25 +9,21 @@ var one_zero_arr_generator = function() {
     console.log(arr);
     return arr;
 };
-one_zero_arr_generator();
 
-
-var display = function(current_number, n) {
+var display = function(n) {
+    var a = one_zero_arr_generator();
+    //loop over the one zero arr here
+    //add class x0 (white) if it is 0 and class x1(grey) if it is one
+    for (var i = 0; i < a.length; i++) {
+        console.log(a[i]);
+        if (a[i] == 1){
+        $(a[i]).addClass('.x1');
+       }
+    }
     var x = "";
     for (var i = 0; i <= n; i++) {
-        x = x + '<div class="x" id="' + i + '"></div>';
+        x = x + '<div class="x" id="box' + i + '"></div>';
     }
     $('#container').html(x);
-    $('.x').css({
-        "border": "1px solid black",
-        "height": "25px",
-        "width": "25px",
-        "float": "left"
-    });
-    if (current_number == 1) {
-        $('.x').css({
-            "background-color": "grey"
-        });
-    }
 };
-display(current_number, n);
+display(n);
