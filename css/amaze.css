@@ -1,13 +1,26 @@
+#container {
+    border: 1px solid #ddd;
+    height: 300px;
+    width: 300px;
+}
 .y {
-    border: 1px solid black;
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     float: left;
+    text-align: center;
+    font-size: 9px;
+    line-height: 30px;
 }
 .x0 {
     background-color: white;
+    color: #aaa;
 }
 .x1 {
-    background-color: gray;
+    background-color: #ccc;
+    color: #888;
 }
 
+.btn {
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
