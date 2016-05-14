@@ -1,37 +1,44 @@
-//an array with 10 random numbers
-
-// var num;
 var arr = [];
+var current_number = 0;
+var n = 9;
 
-// var random_number_generator = function(){
-//     num = Math.floor(Math.random() * 100) + 1;
-//     console.log("num", num);
-//     return num;
-// };
-// var b = random_number_generator();
-// console.log("b", b);
-
-
-// var random_array_generator = function() {
-//     for (var i=0, n=10; i<n; i++) {
-//     arr.push(Math.round(Math.random() * n));
-//    }
-// };
-// random_array_generator();
-// console.log("arr", arr);
-
-var one_zero_generator = function() {
+var one_zero_arr_generator = function() {
     for (var i=0; i<10; i++){
         arr.push((Math.floor(Math.random() * 9) % 2));
     }
 };
-one_zero_generator();
+one_zero_arr_generator();
 console.log("arr", arr);
 
-//generates a random whole number between 1 and 100
-// var rand_num = Math.floor(Math.random() * 100) + 1;
-// console.log(rand_num);
+var style_display = function(current_number) {
+    $('.x').css({
+            "border": "1px solid black",
+            "height": "25px",
+            "width": "25px",
+            "float": "left"
+        });
+    if(current_number == 1){
+        // add grey box
+        $('.x').css({
+            "background-color": "grey"
+        });
+    }
+};
 
-//generates 0s and 1s
-// var maze_generator =  (Math.floor(Math.random() * 9) % 2);
-// console.log(maze_generator);
+var display = function(current_number,n) {
+
+    var x = "";
+    for (var i=0; i<=n; i++){
+    x = x + '<div class="x"></div>';
+ }
+ $('#container').html(x);
+ style_display(current_number);
+};
+display(current_number,n);
+
+
+
+//create a function that will create n boxes (loop)...function takes n as
+//parameter and call function n times
+
+
