@@ -1,6 +1,7 @@
 var red_box_position = 0;
 var stop = false;
-var score = 20;
+var max_score = 100;
+var score = max_score;
 var box_color;
 var player_number = 1;
 var score_table_array = [];
@@ -10,12 +11,12 @@ var setHandlers = function() {
         event.stopPropagation();
         display_maze();
         stop = false;
-        score = 20;
+        score = max_score;
         display_score();
     });
     $(".reset").on('click', function(event) {
         event.stopPropagation();
-        score = 20;
+        score = max_score;
         display_score();
         $('#box0').addClass('red active');
         $('#box99').removeClass('red active');
