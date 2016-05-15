@@ -1,5 +1,11 @@
 //make a generate maze button that calls the display function
 
+//make 4 buttons for moving a red box around the maze (up, down,left, right)
+//make a global variable to hold the current state/position of the red box
+//use addClass and Remove class to move the red box around
+
+var red_box_position;
+
 var setHandlers = function() {
     $(".btn").on('click', function(event) {
         event.stopPropagation();
@@ -24,6 +30,8 @@ var display = function() {
     $('#container').html(x);
 };
 
+
 $(document).ready(function() {
+    display();
     setHandlers();
 });
