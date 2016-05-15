@@ -2,8 +2,8 @@ var red_box_position = 0;
 var stop = false;
 var score = 20;
 var box_color;
-console.log(stop);
-console.log(red_box_position);
+var player_number = 1;
+var score_table_array = [];
 
 var setHandlers = function() {
     $(".generate").on('click', function(event) {
@@ -85,15 +85,22 @@ var display_maze = function() {
 };
 
 var display_score = function() {
-    // if (score <= 0) {
-    //     score = 0;
-    //     console.log("Sorry! Try again!");
-    // }
     $('#score').html(score);
 };
 
+var display_score_board = function() {
+    score_table_array.push(score);
+    var a = score_table_array;
+    var score_table = "";
+    for (var i = 0; i < a.length ; i++) {
+         score_table = score_table + '<div class="playernumber"> Player ' + (i + 1) +
+         '</div><div class="playerscore">' + score_table_array[i] + '</div>';
+    }
+    $('#scoreboard').html(score_table);
+    player_number = player_number + 1;
+};
+
 var move_right = function() {
-    // player_won();
     if (stop === true) {
         return;
     }
@@ -112,7 +119,6 @@ var move_right = function() {
 };
 
 var move_left = function() {
-    // player_won();
     if (stop === true) {
         return;
     }
@@ -131,7 +137,6 @@ var move_left = function() {
 };
 
 var move_down = function() {
-    // player_won();
     if (stop === true) {
         return;
     }
@@ -151,7 +156,6 @@ var move_down = function() {
 };
 
 var move_up = function() {
-    // player_won();
     if (stop === true) {
         return;
     }
@@ -172,6 +176,7 @@ var move_up = function() {
 
 var player_won = function() {
     stop = true;
+    display_score_board();
     alert("Congratulations!");
 };
 

@@ -40,5 +40,26 @@
     line-height: 100px;
     float: left;
     margin-left: 10px;
-    font-size: 28px;
+    font-size:
+}
+#scoreboard {
+    /*border: 1px solid black;*/
+    width: 109px;
+    float: left;
+}
+.playernumber {
+    border: 1px solid black;
+    float: left;
+    height: 40px;
+    width: 65px;
+    line-height: 40px;
+    text-align: center;
+}
+.playerscore {
+    border: 1px solid black;
+    float: left;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
 }
