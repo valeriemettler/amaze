@@ -1,12 +1,5 @@
-//make a global variable to hold the current state/position of the red box
-//use addClass and Remove class to move the red box around
-//added key bindings to move red box around
-//assigned red box position to 0 on generate maze on click
-
-//if x % 10 = 0, break (column 0 goes up by 10)
-//if x - 9 % 10 = 0, break (make column 9 go up by same number)
-
 var red_box_position = 0;
+stop = false;
 
 var setHandlers = function() {
     $(".btn").on('click', function(event) {
@@ -34,44 +27,19 @@ var setHandlers = function() {
 $(document).keydown(function(e) {
     switch (e.which) {
         case 37: // left
-            if (red_box_position % 10 === 0) {
-                return
-            } else {
-                $('#box' + red_box_position).removeClass('red');
-                red_box_position = red_box_position - 1;
-                $('#box' + red_box_position).addClass('red');
-            }
+            move_left();
             break;
 
         case 38: // up
-            if (red_box_position >= 0 && red_box_position <= 9) {
-                return
-            } else {
-                $('#box' + red_box_position).removeClass('red');
-                red_box_position = red_box_position - 10;
-                $('#box' + red_box_position).addClass('red');
-            }
+            move_up();
             break;
 
         case 39: // right
-            if ((red_box_position - 9) % 10 === 0) {
-                return
-            } else {
-                $('#box' + red_box_position).removeClass('red');
-                red_box_position = red_box_position + 1;
-                $('#box' + red_box_position).addClass('red');
-            }
+            move_right();
             break;
 
         case 40: // down
-            if (red_box_position >= 90 && red_box_position <= 99) {
-                return
-            } else {
-                $('#box' + red_box_position).removeClass('red');
-                red_box_position = red_box_position + 10;
-                $('#box' + red_box_position).addClass('red');
-            }
-            break;
+            move_down();
 
         default:
             return; // exit this handler for other keys
@@ -96,9 +64,14 @@ var display = function() {
     }
     $('#container').html(x);
     $('#box0').addClass('red');
+    $('#box99').addClass('green');
 };
 
 var move_right = function() {
+    player_won();
+    if(stop === true){
+        return;
+    }
     if ((red_box_position - 9) % 10 === 0) {
         return
     } else {
@@ -109,6 +82,10 @@ var move_right = function() {
 };
 
 var move_left = function() {
+    player_won();
+    if(stop === true){
+        return;
+    }
     if (red_box_position === 0) {
         return
     } else {
@@ -119,6 +96,10 @@ var move_left = function() {
 };
 
 var move_down = function() {
+    player_won();
+    if(stop === true){
+        return;
+    }
     if (red_box_position >= 90 && red_box_position <= 99) {
         return
     } else {
@@ -129,6 +110,10 @@ var move_down = function() {
 };
 
 var move_up = function() {
+    player_won();
+    if(stop === true){
+        return;
+    }
     if (red_box_position >= 0 && red_box_position <= 9) {
         return
     } else {
@@ -137,6 +122,16 @@ var move_up = function() {
         $('#box' + red_box_position).addClass('red');
     }
 };
+
+var player_won = function() {
+    if (red_box_position === 99){
+        stop = true;
+        console.log(stop);
+        console.log("Congratulations!");
+    }
+};
+
+
 
 $(document).ready(function() {
     display();
