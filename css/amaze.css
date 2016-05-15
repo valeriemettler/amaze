@@ -23,6 +23,12 @@
 .generate {
     border: 1px solid black;
     margin: 0 0 10px 10px;
+    float: left;
+}
+.reset{
+    border: 1px solid black;
+    margin: 0 0 10px 10px;
+    float: left;
 }
 .red {
     background-color: red;
@@ -32,6 +38,13 @@
     background-color: #7BEF7B;
     color: #444;
 }
+.buttons {
+    height: 38px;
+    width: 60px;
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 #score {
     border: 1px solid #ddd;
     height: 100px;
@@ -39,16 +52,15 @@
     text-align: center;
     line-height: 100px;
     float: left;
-    margin-left: 10px;
-    font-size:
+    margin: 0 0 10px 10px;
 }
 #scoreboard {
-    /*border: 1px solid black;*/
     width: 109px;
     float: left;
+    margin-left: 10px;
 }
 .playernumber {
-    border: 1px solid black;
+    border: 1px solid #ddd;
     float: left;
     height: 40px;
     width: 65px;
@@ -56,7 +68,7 @@
     text-align: center;
 }
 .playerscore {
-    border: 1px solid black;
+    border: 1px solid #ddd;
     float: left;
     height: 40px;
     width: 40px;

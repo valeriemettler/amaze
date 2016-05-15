@@ -178,7 +178,6 @@ var move_up = function() {
 var player_won = function() {
     stop = true;
     display_score_board();
-    alert("Congratulations!");
 };
 
 var update_score = function() {
