@@ -1,10 +1,17 @@
+//display_maze 20
+// -1 for every move, -5 for moving onto grey
 var red_box_position = 0;
-stop = false;
+var stop = false;
+var score = 20;
+var box_color;
 
 var setHandlers = function() {
     $(".btn").on('click', function(event) {
         event.stopPropagation();
-        display();
+        display_maze();
+        stop = false;
+        score = 20;
+        display_score();
     });
     $(".right").on('click', function(event) {
         event.stopPropagation();
@@ -55,7 +62,7 @@ var one_zero_arr_generator = function() {
     return arr;
 };
 
-var display = function() {
+var display_maze = function() {
     red_box_position = 0;
     var a = one_zero_arr_generator();
     var x = "";
@@ -63,77 +70,101 @@ var display = function() {
         x = x + '<div class="y x' + a[i] + '" id="box' + i + '">' + i + '</div>';
     }
     $('#container').html(x);
-    $('#box0').addClass('red');
+    $('#box0').addClass('red active');
     $('#box99').addClass('green');
+};
+
+var display_score = function() {
+    // if (score <= 0) {
+    //     score = 0;
+    //     console.log("Sorry! Try again!");
+    // }
+    $('#score').html(score);
 };
 
 var move_right = function() {
     player_won();
-    if(stop === true){
+    if (stop === true) {
         return;
     }
     if ((red_box_position - 9) % 10 === 0) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red');
+        $('#box' + red_box_position).removeClass('red active');
         red_box_position = red_box_position + 1;
-        $('#box' + red_box_position).addClass('red');
+        $('#box' + red_box_position).addClass('red active');
     }
+        update_score();
+        display_score();
 };
 
 var move_left = function() {
     player_won();
-    if(stop === true){
+    if (stop === true) {
         return;
     }
     if (red_box_position === 0) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red');
+        $('#box' + red_box_position).removeClass('red active');
         red_box_position = red_box_position - 1;
-        $('#box' + red_box_position).addClass('red');
+        $('#box' + red_box_position).addClass('red active');
     }
+        update_score();
+        display_score();
 };
 
 var move_down = function() {
     player_won();
-    if(stop === true){
+    if (stop === true) {
         return;
     }
     if (red_box_position >= 90 && red_box_position <= 99) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red');
+        $('#box' + red_box_position).removeClass('red active');
         red_box_position = red_box_position + 10;
-        $('#box' + red_box_position).addClass('red');
+        $('#box' + red_box_position).addClass('red active');
+        update_score();
+        display_score();
     }
 };
 
 var move_up = function() {
     player_won();
-    if(stop === true){
+    if (stop === true) {
         return;
     }
     if (red_box_position >= 0 && red_box_position <= 9) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red');
+        $('#box' + red_box_position).removeClass('red active');
         red_box_position = red_box_position - 10;
-        $('#box' + red_box_position).addClass('red');
+        $('#box' + red_box_position).addClass('red active');
     }
+
 };
 
 var player_won = function() {
-    if (red_box_position === 99){
+    if (red_box_position === 99) {
         stop = true;
         console.log(stop);
         console.log("Congratulations!");
     }
 };
 
+var update_score = function() {
+        // if the red box moves over a grey box, -5, otherwise, -1
+        if ($('.active').hasClass('x1')) {
+            score = score - 5;
+        } else {
+            score = score - 1;
+        }
+};
 
 
 $(document).ready(function() {
-    display();
+    display_maze();
+    display_score();
     setHandlers();
 });
