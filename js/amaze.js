@@ -1,6 +1,4 @@
-//make a generate maze button that calls the display function
-
-//make 4 buttons for moving a red box around the maze (up, down,left, right)
+// make box 0 red after generating each maze
 //make a global variable to hold the current state/position of the red box
 //use addClass and Remove class to move the red box around
 
@@ -28,8 +26,8 @@ var display = function() {
         x = x + '<div class="y x' + a[i] + '" id="box' + i + '">'+ i +'</div>';
     }
     $('#container').html(x);
+    $('#box0').addClass('red');
 };
-
 
 $(document).ready(function() {
     display();
