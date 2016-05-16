@@ -74,4 +74,30 @@
     width: 40px;
     line-height: 40px;
     text-align: center;
+.ps1 {
+    background-color: #FFC8F2;
+}
+.ps2 {
+    background-color: #DDCEFF;
+}
+.ps3 {
+    background-color: #FFCECE;
+}
+.ps4 {
+    background-color: #B8E2EF;
+}
+.ps5 {
+    background-color: #BAD0EF;
+}
+.ps6 {
+    background-color: #FFFF99;
+}
+.ps7 {
+    background-color: #CAFFD8;
+}
+.ps8 {
+    background-color: #C9DECB;
+}
+.ps9 {
+    background-color: #ffb347;
 }
