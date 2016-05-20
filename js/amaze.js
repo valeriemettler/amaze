@@ -85,7 +85,6 @@ var display_score = function() {
 var display_score_board = function() {
     score_table_array.push(score);
     color_data_array.push(random_color_array[random_color_index]);
-    console.log("cda", color_data_array);
     var a = score_table_array;
     var score_table = "";
     for (var i = 0; i < a.length; i++) {

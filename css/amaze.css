@@ -18,6 +18,7 @@
 }
 .x1 {
     background-color: #ccc;
+    opacity: 0.5;
     color: #888;
 }
 .generate {
