@@ -2,8 +2,9 @@ var red_box_position = 0;
 var stop = false;
 var max_score = 100;
 var score = max_score;
-var box_color;
-var player_number = 1;
+var box_color = '#000';
+var player_number = 0;
+var score_table_hash = {};
 var score_table_array = [];
 var random_color_array = ["#fbb735", "#e98931", "#eb403b", "#b32E37", "#6c2a6a",
     "#5c4399", "#274389", "#1f5ea8", "#227FB0", "#2ab0c5",
@@ -11,6 +12,8 @@ var random_color_array = ["#fbb735", "#e98931", "#eb403b", "#b32E37", "#6c2a6a",
     "#effac8", "#c7f5c4", "#c4f0f4", "#c4daf4", "#c9c4f4",
     "#e1c4f4", "#f6c6e6"];
 var random_color_index = 0;
+var color_data_array = [];
+
 
 var setHandlers = function() {
     $(".generate").on('click', function(event) {
@@ -106,6 +109,8 @@ var display_score = function() {
 
 var display_score_board = function() {
     score_table_array.push(score);
+    color_data_array.push(random_color_array[random_color_index]);
+    console.log("cda", color_data_array);
     var a = score_table_array;
     var score_table = "";
     for (var i = 0; i < a.length; i++) {
@@ -119,24 +124,12 @@ var display_score_board = function() {
 };
 
 var score_board_style = function() {
- //    for (var i = 1; i <= player_number; i++) {
- //        var b = '.ps' + (i);
- //        console.log(b);
- // console.log(document.getElementsByClassName(b));
- // var m = document.getElementsByClassName(b);
- // var c = m.style;
- // c.backgroundColor = "#eee";
-
-    // var m = document.getElementById('.ps' + (i+1)), c = m.style;
-    // c.backgroundColor = random_color_array[random_color_index];
-// }
-
      for (var i = 0; i <= player_number; i++) {
         console.log("setting the color of:");
         console.log('.ps' + (i+1));
         console.log(random_color_array[i]);
      $('.ps' + (i+1)).first().css ({
-        "background-color": random_color_array[i]
+        "background-color": color_data_array[i]
     });
  }
 };
