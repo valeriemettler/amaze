@@ -1,10 +1,8 @@
-var red_box_position = 0;
+var active_box_position = 0;
 var stop = false;
 var max_score = 100;
 var score = max_score;
-var box_color = '#000';
 var player_number = 0;
-var score_table_hash = {};
 var score_table_array = [];
 var random_color_array = ["#fbb735", "#e98931", "#eb403b", "#b32E37", "#6c2a6a",
     "#5c4399", "#274389", "#1f5ea8", "#227FB0", "#2ab0c5",
@@ -13,7 +11,6 @@ var random_color_array = ["#fbb735", "#e98931", "#eb403b", "#b32E37", "#6c2a6a",
     "#e1c4f4", "#f6c6e6"];
 var random_color_index = 0;
 var color_data_array = [];
-
 
 var setHandlers = function() {
     $(".generate").on('click', function(event) {
@@ -28,9 +25,9 @@ var setHandlers = function() {
         event.stopPropagation();
         score = max_score;
         display_score();
-        $('#box0').addClass('red active');
-        $('#box99').removeClass('red active');
-        red_box_position = 0;
+        $('#box0').addClass('green active');
+        $('#box99').removeClass('green active');
+        active_box_position = 0;
         stop = false;
         random_color_generator();
     });
@@ -53,29 +50,7 @@ var setHandlers = function() {
     });
 };
 
-$(document).keydown(function(e) {
-    switch (e.which) {
-        case 37: // left
-            move_left();
-            break;
-
-        case 38: // up
-            move_up();
-            break;
-
-        case 39: // right
-            move_right();
-            break;
-
-        case 40: // down
-            move_down();
-
-        default:
-            return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
-});
-
+// generates an array of 0s and 1s to make a random grey and white maze
 var one_zero_arr_generator = function() {
     var arr = [];
     for (var i = 0; i < 100; i++) {
@@ -90,7 +65,7 @@ var random_color_generator = function() {
 };
 
 var display_maze = function() {
-    red_box_position = 0;
+    active_box_position = 0;
     var a = one_zero_arr_generator();
     var x = "";
     for (var i = 0; i < a.length; i++) {
@@ -98,8 +73,8 @@ var display_maze = function() {
         x = x + '<div class="y x' + a[i] + '" id="box' + i + '">' + i + '</div>';
     }
     $('#container').html(x);
-    $('#box0').addClass('red active');
-    $('#box99').addClass('green');
+    $('#box0').addClass('green active');
+    $('#box99').addClass('red');
     random_color_generator();
 };
 
@@ -125,96 +100,114 @@ var display_score_board = function() {
 
 var score_board_style = function() {
      for (var i = 0; i <= player_number; i++) {
-        console.log("setting the color of:");
-        console.log('.ps' + (i+1));
-        console.log(random_color_array[i]);
      $('.ps' + (i+1)).first().css ({
         "background-color": color_data_array[i]
     });
  }
 };
 
+// arrow key bindings
+$(document).keydown(function(e) {
+    switch (e.which) {
+        case 37: // left
+            move_left();
+            break;
+
+        case 38: // up
+            move_up();
+            break;
+
+        case 39: // right
+            move_right();
+            break;
+
+        case 40: // down
+            move_down();
+
+        default:
+            return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+// tracking player movement
 var move_right = function() {
     if (stop === true) {
         return;
     }
-    if ((red_box_position - 9) % 10 === 0) {
+    if ((active_box_position - 9) % 10 === 0) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red active');
-        red_box_position = red_box_position + 1;
-        $('#box' + red_box_position).addClass('red active');
-        $('#box' + red_box_position).css({
-            "background-color": random_color_array[random_color_index]
-        });
+        remove_active_class();
+        active_box_position = active_box_position + 1;
+        add_active_class();
     }
     update_score();
     display_score();
-    if (red_box_position == 99) {
-        player_won();
-    }
+    check_winner_status();
 };
 
 var move_left = function() {
     if (stop === true) {
         return;
     }
-    if (red_box_position === 0) {
+    if (active_box_position === 0) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red active');
-        red_box_position = red_box_position - 1;
-        $('#box' + red_box_position).addClass('red active');
-        $('#box' + red_box_position).css({
-            "background-color": random_color_array[random_color_index]
-        });
+        remove_active_class();
+        active_box_position = active_box_position - 1;
+        add_active_class();
     }
     update_score();
     display_score();
-    if (red_box_position == 99) {
-        player_won();
-    }
+    check_winner_status();
 };
 
 var move_down = function() {
     if (stop === true) {
         return;
     }
-    if (red_box_position >= 90 && red_box_position <= 99) {
+    if (active_box_position >= 90 && active_box_position <= 99) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red active');
-        red_box_position = red_box_position + 10;
-        $('#box' + red_box_position).addClass('red active');
-        $('#box' + red_box_position).css({
-            "background-color": random_color_array[random_color_index]
-        });
+        remove_active_class();
+        active_box_position = active_box_position + 10;
+        add_active_class();
     }
     update_score();
     display_score();
-    if (red_box_position === 99) {
-        player_won();
-    }
+    check_winner_status();
 };
 
 var move_up = function() {
     if (stop === true) {
         return;
     }
-    if (red_box_position >= 0 && red_box_position <= 9) {
+    if (active_box_position >= 0 && active_box_position <= 9) {
         return
     } else {
-        $('#box' + red_box_position).removeClass('red active');
-        red_box_position = red_box_position - 10;
-        $('#box' + red_box_position).addClass('red active');
-        $('#box' + red_box_position).css({
-            "background-color": random_color_array[random_color_index]
-        });
-
+        remove_active_class();
+        active_box_position = active_box_position - 10;
+        add_active_class();
     }
     update_score();
     display_score();
-    if (red_box_position === 99) {
+    check_winner_status();
+};
+
+var remove_active_class = function() {
+    $('#box' + active_box_position).removeClass('green active');
+};
+
+var add_active_class = function() {
+    $('#box' + active_box_position).addClass('active');
+    $('#box' + active_box_position).css({
+        "background-color": random_color_array[random_color_index]
+    });
+};
+
+var check_winner_status = function() {
+    if (active_box_position === 99) {
         player_won();
     }
 };
@@ -225,7 +218,7 @@ var player_won = function() {
 };
 
 var update_score = function() {
-    // if the red box moves over a grey box, -5, otherwise, -1
+    // if the active box moves over a grey box, -5, otherwise, -1
     if ($('.active').hasClass('x1')) {
         score = score - 5;
     } else {
